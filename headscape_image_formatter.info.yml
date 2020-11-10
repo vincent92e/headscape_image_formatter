@@ -1,0 +1,7 @@
+name: 'Headscape Image Formatter'
+type: module
+description: 'Custom image field formatter'
+core: 8.x
+package: 'Custom'
+dependencies:
+  - field

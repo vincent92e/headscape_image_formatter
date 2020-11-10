@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains headscape_image_formatter.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function headscape_image_formatter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the headscape_image_formatter module.
+    case 'help.page.headscape_image_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Custom image field formatter') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function headscape_image_formatter_theme() {
+  return [
+    'headscape_image_formatter' => [
+      'render element' => 'children',
+    ],
+  ];
+}
