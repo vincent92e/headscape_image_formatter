@@ -1,0 +1,4 @@
+headscape.image.formatter:
+  css:
+    theme:
+      css/headscape.image.formatter.css: {}

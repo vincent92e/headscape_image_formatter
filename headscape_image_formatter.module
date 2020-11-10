@@ -29,7 +29,8 @@ function headscape_image_formatter_help($route_name, RouteMatchInterface $route_
 function headscape_image_formatter_theme() {
   return [
     'headscape_image_formatter' => [
-      'render element' => 'children',
+      'variables' => array('items' => NULL),
+      'template' => 'headscape-image-formatter',
     ],
   ];
 }

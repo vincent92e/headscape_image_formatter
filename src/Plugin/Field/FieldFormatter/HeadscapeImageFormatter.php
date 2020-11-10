@@ -13,9 +13,9 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @FieldFormatter(
  *   id = "headscape_image_formatter",
- *   label = @Translation("Custome image formatter"),
+ *   label = @Translation("Headscape image formatter"),
  *   field_types = {
- *     "headscape_image_formatter"
+ *     "image"
  *   }
  * )
  */
@@ -27,6 +27,7 @@ class HeadscapeImageFormatter extends FormatterBase {
   public static function defaultSettings() {
     return [
       // Implement default settings.
+      'headscape' => 'headscape',
     ] + parent::defaultSettings();
   }
 
@@ -36,6 +37,11 @@ class HeadscapeImageFormatter extends FormatterBase {
   public function settingsForm(array $form, FormStateInterface $form_state) {
     return [
       // Implement settings form.
+      'headscape' => [
+        '#title' => $this->t('Image class'),
+        '#type' => 'textfield',
+        '#default_value' => $this->getSetting('headscape'),
+      ],
     ] + parent::settingsForm($form, $form_state);
   }
 
@@ -45,6 +51,16 @@ class HeadscapeImageFormatter extends FormatterBase {
   public function settingsSummary() {
     $summary = [];
     // Implement settings summary.
+    // Get class name.
+    $class_name = $this->getSetting('headscape');
+
+    if (isset($class_name)) {
+      $summary[] = t('Image class: @class',
+        ['@class' => $class_name]);
+    }
+    else {
+      $summary[] = t('default-img-class');
+    }
 
     return $summary;
   }
@@ -54,9 +70,20 @@ class HeadscapeImageFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
+    // Get class name.
+    $image_class = $this->getSetting('headscape');
 
     foreach ($items as $delta => $item) {
-      $elements[$delta] = ['#markup' => $this->viewValue($item)];
+      if ($item->entity) {
+        $image_url = $item->entity->url();
+        $data = [$image_class, $image_url];
+        // Format field using the headscape_image_formatter theme function.
+        $elements[$delta] = [
+          '#theme' => 'headscape_image_formatter',
+          '#items' => $data,
+        ];
+      }
+
     }
 
     return $elements;

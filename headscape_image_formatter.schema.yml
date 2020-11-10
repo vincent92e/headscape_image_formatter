@@ -1,10 +1,7 @@
-field.widget.settings.example_widget_type:
+field.formatter.settings.headscape_image_formatter:
   type: mapping
-  label: 'Example widget type widget settings'
+  label: 'FORMATTER NAME default class'
   mapping:
-    size:
-      type: integer
-      label: 'Size'
-    placeholder:
-      type: textfield
-      label: 'Placeholder'
+    headscape:
+      type: string
+      label: 'Default class'
